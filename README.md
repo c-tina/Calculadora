@@ -1,4 +1,4 @@
-<h3>Calculadora simple</h3>
+<h1>Calculadora simple</h1>
 
 **Sumar:** Permite sumar dos o más números. Por ejemplo, si ingresas "5 + 3", el resultado será "8".
 
