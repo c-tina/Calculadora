@@ -1,0 +1,206 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100"
+    android:padding="10dp">
+
+    <!-- TextView para el resultado -->
+    <TextView
+        android:id="@+id/resultado"
+        style="@style/botonrecto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="16dp"
+        android:text="0"
+        android:textSize="50sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Primera columna: Botones 1, 4, 7 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button1"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resultado"
+        app:layout_constraintEnd_toStartOf="@+id/button2"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button4"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintEnd_toStartOf="@+id/button5"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button7"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button4"
+        app:layout_constraintEnd_toStartOf="@+id/button8"/>
+
+    <!-- Segunda columna: Botones 2, 5, 8 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="2"
+        app:layout_constraintStart_toEndOf="@id/button1"
+        app:layout_constraintTop_toBottomOf="@id/resultado"
+        app:layout_constraintEnd_toStartOf="@+id/button3"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button5"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="5"
+        app:layout_constraintStart_toEndOf="@id/button4"
+        app:layout_constraintTop_toBottomOf="@id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/button6"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button8"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="8"
+        app:layout_constraintStart_toEndOf="@id/button7"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/button9"/>
+
+    <!-- Tercera columna: Botones 3, 6, 9 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button3"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="3"
+        app:layout_constraintStart_toEndOf="@id/button2"
+        app:layout_constraintTop_toBottomOf="@id/resultado"
+        app:layout_constraintEnd_toStartOf="@+id/suma"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button6"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="6"
+        app:layout_constraintStart_toEndOf="@id/button5"
+        app:layout_constraintTop_toBottomOf="@id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/resta"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button9"
+        style="@style/botonrecto"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="9"
+        app:layout_constraintStart_toEndOf="@id/button8"
+        app:layout_constraintTop_toBottomOf="@id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/multiplicacion"/>
+
+    <!-- Cuarta columna: Sumar, restar, multiplicar, dividir -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/suma"
+        style="@style/botonrecto"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="+"
+        app:layout_constraintStart_toEndOf="@id/button3"
+        app:layout_constraintTop_toBottomOf="@id/resultado"
+        app:layout_constraintEnd_toStartOf="@+id/borrar"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resta"
+        style="@style/botonrecto"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@id/button6"
+        app:layout_constraintTop_toBottomOf="@id/suma"
+        app:layout_constraintEnd_toStartOf="@+id/clear"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/multiplicacion"
+        style="@style/botonrecto"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="x"
+        app:layout_constraintEnd_toStartOf="@+id/igual"
+        app:layout_constraintStart_toEndOf="@id/button9"
+        app:layout_constraintTop_toBottomOf="@id/resta" />
+
+
+    <!-- Cuarta fila: Botón 0 y división -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button0"
+        style="@style/botonrecto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/division"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/division"
+        style="@style/botonrecto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="%"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/igual"
+        app:layout_constraintStart_toEndOf="@id/button0"
+        app:layout_constraintTop_toBottomOf="@id/multiplicacion" />
+
+
+    <!-- Botones igual, clear y borrar -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/igual"
+        style="@style/botonrecto"
+        android:layout_width="90dp"
+        android:layout_height="110dp"
+        android:text="="
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clear"
+        app:layout_constraintStart_toEndOf="@+id/multiplicacion"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/clear"
+        style="@style/botonrecto"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:text="C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/resta"
+        app:layout_constraintTop_toBottomOf="@id/borrar" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/borrar"
+        style="@style/botonrecto"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:contentDescription="Botón de borrar"
+        android:drawableEnd="@drawable/ic_launcher_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/suma"
+        app:layout_constraintTop_toBottomOf="@id/resultado" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
