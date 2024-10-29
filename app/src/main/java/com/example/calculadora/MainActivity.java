@@ -11,25 +11,48 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.calculadora.databinding.ActivityMainBinding;
 
+/**
+ * La clase MainActivity representa la actividad principal de la aplicación de calculadora.
+ * Es responsable de gestionar la interfaz de usuario y de actuar como intermediaria entre
+ * la interfaz y la lógica de cálculo que reside en la clase {@link Calculator}.
+ *
+ * @author c-tina
+ * @version 1.2.0
+ * @since 1.0.0
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /** Enlace a la vista de la actividad principal, manejada mediante View Binding */
     ActivityMainBinding binding;
+    /** Cadena que almacena el texto de la expresión matemática en construcción */
     private String texto = "";
+    /** Variable que almacena el último resultado calculado */
     private int ultimoResultado = 0;
+    /** Indica si se está introduciendo un nuevo número después de una operación */
     private boolean nuevoNumero = false;
 
+    /** Instancia de la clase Calculator, responsable de realizar los cálculos */
+    private Calculator calculator = new Calculator();
+
+    /**
+     * Método que se llama al crear la actividad. Inicializa la interfaz de usuario,
+     * configura los insets de la ventana y asigna los listeners a los botones.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad, si existe.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView((binding = ActivityMainBinding.inflate(getLayoutInflater())).getRoot());
+        // Configura los insets de la ventana para una experiencia de usuario mejorada
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Asignamos listeners a todos los botones
+        // Asigna listeners a todos los botones de la calculadora
         binding.button0.setOnClickListener(v -> onButtonClick(binding.button0));
         binding.button1.setOnClickListener(v -> onButtonClick(binding.button1));
         binding.button2.setOnClickListener(v -> onButtonClick(binding.button2));
@@ -49,23 +72,31 @@ public class MainActivity extends AppCompatActivity {
         binding.borrar.setOnClickListener(v -> onButtonClick(binding.borrar));
     }
 
+    /**
+     * Método que se llama al hacer clic en un botón de la interfaz.
+     * Gestiona el comportamiento de los botones numéricos, de operación y otras funciones.
+     *
+     * @param button El botón que se pulsa.
+     */
     private void onButtonClick(Button button) {
-        // Limpiamos el textview y reseteamos el resultado
+        // Si se presiona el botón de limpiar, restablece el texto y el resultado
         if (button.getId() == R.id.clear) {
             ultimoResultado = 0;
             binding.resultado.setText("0");
+            texto = "";
             nuevoNumero = false;
-        // Maneja el resultado
+        // Si se presiona el botón de igual, calcula el resultado de la expresión
         } else if (button.getId() == R.id.igual) {
             try {
-                // guarda en ultimoResultado el resultado de calcular el string
-                ultimoResultado = calculate(texto);
+                // Utiliza Calculator para calcular el resultado de la expresión
+                ultimoResultado = calculator.calculate(texto);
                 binding.resultado.setText(String.valueOf(ultimoResultado));
                 texto = String.valueOf(ultimoResultado);
-                nuevoNumero = true; // operamos desde el último resultado asignado
-            } catch (Exception e) {
+                nuevoNumero = true; // Marca que se está operando desde el último resultado calculado
+            } catch (ArithmeticException e) {
                 binding.resultado.setText("-1"); // En caso de error, muestra -1
             }
+        // Si se presiona el botón de borrar, elimina el último carácter de la expresión
         } else if (button.getId() == R.id.borrar) {
             if (!texto.isEmpty()) {
                 // Eliminar el último carácter de la cadena
@@ -77,35 +108,11 @@ public class MainActivity extends AppCompatActivity {
                     binding.resultado.setText(texto);
                 }
             }
+        // Para otros botones (números y operadores), agrega el texto del botón a la expresión
         } else {
             String buttonText = button.getText().toString();
             texto += buttonText;
             binding.resultado.setText(texto);
         }
     }
-
-    // Método recursivo que calcula la suma, resta, multiplicación y división
-    private int calculate(String s) {
-        if (s.contains("+")) {
-            // los strings que contengan caracteres como operadores +, *, / tienen que ir con dos \\ delante
-            String[] partes = s.split("\\+", 2);
-            return calculate(partes[0]) + calculate(partes[1]);
-        } else if (s.contains("-")) {
-            String[] partes = s.split("-", 2);
-            return calculate(partes[0]) - calculate(partes[1]);
-        } else if (s.contains("x")) {
-            String[] partes = s.split("x", 2);
-            return calculate(partes[0]) * calculate(partes[1]);
-        } else if (s.contains("%")) {
-            String[] partes = s.split("%", 2);
-            int divisor = calculate(partes[1]);
-            if (divisor == 0) {
-                binding.resultado.setText("0");
-            }
-            return calculate(partes[0]) / divisor;
-        } else {
-            return Integer.parseInt(s); // Si no hay operadores, simplemente devuelve el número
-        }
-    }
-
 }
